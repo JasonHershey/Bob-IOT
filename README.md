@@ -17,9 +17,13 @@ Setup is based partially on the instructions from [Codefoster's IOT Workshop ins
 2. Install Etcher from [etcher.io](https://etcher.io)
 3. Insert the SD card in your local computer
 4. Install the Raspbian Jessie Lite image you downloaded to the SD card, using Etcher:
+
   a. Start **Etcher**.
+
   b. Click **Select image** and navigate to and select the zip file downloaded from Raspberrypi.org.
+
   c. Click **Select drive** and select the SD card.
+
   d. Click **Flash!** and wait for the image to install.
 
 5. Eject and re-insert the SD card.
@@ -28,8 +32,11 @@ Setup is based partially on the instructions from [Codefoster's IOT Workshop ins
 8. Plug in power cable to the Raspberry Pi.
 9. Plug in network cable to Raspberry Pi (plug in other end to your computer or router).
 10. Log in to your raspberry pi
+
   a. Open a command window that supports SSH.
+
     > I use **Windows PowerShell**, and the **Git Shell**'s shell.ps1 configuration file, called from my profile at startup.
+
   b. From your command shell, type the following command and press ENTER:
 
     ```
