@@ -19,11 +19,8 @@ Setup is based partially on the instructions from [Codefoster's IOT Workshop ins
 4. Install the Raspbian Jessie Lite image you downloaded to the SD card, using Etcher:
 
   a. Start **Etcher**.
-
   b. Click **Select image** and navigate to and select the zip file downloaded from Raspberrypi.org.
-
   c. Click **Select drive** and select the SD card.
-
   d. Click **Flash!** and wait for the image to install.
 
 5. Eject and re-insert the SD card.
@@ -34,14 +31,13 @@ Setup is based partially on the instructions from [Codefoster's IOT Workshop ins
 10. Log in to your raspberry pi
 
   a. Open a command window that supports SSH.
-
     > I use **Windows PowerShell**, and the **Git Shell**'s shell.ps1 configuration file, called from my profile at startup.
 
   b. From your command shell, type the following command and press ENTER:
 
-    ```
+  ```
     ssh pi@raspberrypi.local
-    ```
+  ```
   c. When prompted, enter the password **raspberry**
 
 10. Verify wi-fi tools are installed.
