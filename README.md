@@ -29,9 +29,9 @@ Setup is based partially on the instructions from [Codefoster's IOT Workshop ins
 9. Plug in network cable to Raspberry Pi (plug in other end to your computer or router).
 10. Verify wi-fi tools are installed.
 
-  > Based on instructions from [https://www.maketecheasier.com/setup-wifi-on-raspberry-pi/](https://www.maketecheasier.com/setup-wifi-on-raspberry-pi/)
+    > Based on instructions from [https://www.maketecheasier.com/setup-wifi-on-raspberry-pi/](https://www.maketecheasier.com/setup-wifi-on-raspberry-pi/)
 
-  - Run the command
+    - Run the command
 
     ```
     sudo apt-get install wpasupplicant wireless-tools
@@ -49,7 +49,7 @@ Setup is based partially on the instructions from [Codefoster's IOT Workshop ins
   iface wlan0 inet manual
       wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
   iface default inet dhcp
-  ```
+  ```h
   
 13. Press **CTRL+X** to exit nano. Press **Y** and press ENTER to SAVE the file, and press ENTER again to save it.
 
@@ -77,8 +77,10 @@ Setup is based partially on the instructions from [Codefoster's IOT Workshop ins
       }
   ```
   
-  Replace the text *\<Wireless Network Name\>* with the name of your network.
+  Replace the text *\<Wireless Network Name\>* withthe name of your network.
   Replace the text *\<network passowrd\>* with your network password.
   
 17. Exit Nano and save the file.
+
+18. C
 https://www.maketecheasier.com/setup-wifi-on-raspberry-pi/
