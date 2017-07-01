@@ -40,25 +40,25 @@ Setup is based partially on the instructions from [Codefoster's IOT Workshop ins
         ssh pi@raspberrypi.local
         ```
  
-   3. When prompted, enter the password **raspberry**
+     3. When prompted, enter the password **raspberry**
 
-10. Verify wi-fi tools are installed.
+11. Verify wi-fi tools are installed.
 
     > Based on instructions from [https://www.maketecheasier.com/setup-wifi-on-raspberry-pi/](https://www.maketecheasier.com/setup-wifi-on-raspberry-pi/)
 
     - Run the command
 
-    ```
+        ```
         sudo apt-get install wpasupplicant wireless-tools
-    ```
+        ```
 
-11. Update general wi-fi configurations. Run the command:
+12. Update general wi-fi configurations. Run the command:
 
     ```
     sudo nano /etc/network/interfaces
     ```
 
-12. Update the section that starts with **allow-hotplug wlan0** to match the following:
+13. Update the section that starts with **allow-hotplug wlan0** to match the following:
 
     ```
     allow-hotplug wlan0
@@ -67,9 +67,9 @@ Setup is based partially on the instructions from [Codefoster's IOT Workshop ins
     iface default inet dhcp
     ```
   
-13. Press **CTRL+X** to exit nano. Press **Y** and press ENTER to SAVE the file, and press ENTER again to save it.
+14. Press **CTRL+X** to exit nano. Press **Y** and press ENTER to SAVE the file, and press ENTER again to save it.
 
-14. Get a list of available wireless networks. Run the command:
+15. Get a list of available wireless networks. Run the command:
 
     ```
     sudo iwlist wlan0 scan | grep ESSID
@@ -77,13 +77,13 @@ Setup is based partially on the instructions from [Codefoster's IOT Workshop ins
   
     > **grep ESSID** returns just the lines containing **ESSID**, which show the network names.
   
-15. Update the wpa_supplicant configuration file. Run the command:
+16. Update the wpa_supplicant configuration file. Run the command:
 
     ```
     sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
     ```
   
-16. Add the following to the file:
+17. Add the following to the file:
 
     ```
     network={
@@ -93,31 +93,30 @@ Setup is based partially on the instructions from [Codefoster's IOT Workshop ins
         }
     ```
   
-    Replace the text *\<Wireless Network Name\>* withthe name of your network.
-
-    Replace the text *\<network passowrd\>* with your network password.
+    - Replace the text *\<Wireless Network Name\>* with the name of your network.
+    - Replace the text *\<network passowrd\>* with your network password.
   
-17. Exit Nano and save the file.
+18. Exit Nano and save the file.
 
-18. Update other Raspberry Configration options using the **Raspberry Pi Software Configuration Tool (raspi-config). Run the command:
+19. Update other Raspberry Configration options using the **Raspberry Pi Software Configuration Tool (raspi-config). Run the command:
 
     ```
     sudo raspi-config
     ```
 
-19. Change the user password on your device
+20. Change the user password on your device
     1. In **raspi-config** select **1 Change User Password**.
     2. Select **Ok**.
     3. In the shell, type your new password and press Enter.
     4. Confirm your password and press Enter.
     5. In **raspi-config** select **Ok**.
 
-20. Change the host name for your device (from *raspberrypi*)
+21. Change the host name for your device (from *raspberrypi*)
     1. In **raspi-config** select **2 Hostname**.
     2. Select **Ok**.
     3. Type your new host name and press Enter.
 
-21. Change the locale options
+22. Change the locale options
     1. In **raspi-config** select **4 Localisation Options**.
     2. Select **I1 Change Loocale**.
     3. On the **Configuring locales** page, use the arrow keys to scroll through the list, and SPACEBAR to select your language and locale setting.
@@ -129,5 +128,24 @@ Setup is based partially on the instructions from [Codefoster's IOT Workshop ins
     5. Update the **Timezone** and **Wi-fi Country** as needed from the same **Localisation Options** menu.
     6. When finished, in **raspi-config** select **Finish** and press ENTER.
     7. Select **Yes** to reboot your Raspberry Pi
+
+23. Log in to your Raspberry Pi, again, using the new host name (**pi@_hostname_.local**)
+
+24. Install Node.js on the device
+    1. Check Nodejs.org to verify what the current or latest version is.
+        > At the time of this instruction, the Long Term Support (LTS) version was 6.11.0 and current 8.1.3. I used current.
+    2. In bash, run the following commands:
+        ```
+        cUrl -sL http://deb.nodesource/com/Setup_8.x | sudo -E bash
+        sudo  apt-get -y install nodejs
+        ```
+
+
+
+
+
+
+
+
 
 
