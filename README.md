@@ -38,7 +38,7 @@ These instructions will install an operating systema and Node.js.
 
     2. From your command shell, type the following command and press ENTER:
 
-        ```
+        ``` posh
         ssh pi@raspberrypi.local
         ```
  
@@ -50,19 +50,19 @@ These instructions will install an operating systema and Node.js.
 
     - Run the command
 
-        ```
+        ``` bash
         sudo apt-get install wpasupplicant wireless-tools
         ```
 
 12. Update general wi-fi configurations. Run the command:
 
-    ```
+    ``` bash
     sudo nano /etc/network/interfaces
     ```
 
 13. Update the section that starts with **allow-hotplug wlan0** to match the following:
 
-    ```
+    ``` js
     allow-hotplug wlan0
     iface wlan0 inet manual
         wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
@@ -73,7 +73,7 @@ These instructions will install an operating systema and Node.js.
 
 15. Get a list of available wireless networks. Run the command:
 
-    ```
+    ``` bash
     sudo iwlist wlan0 scan | grep ESSID
     ```
   
@@ -81,13 +81,13 @@ These instructions will install an operating systema and Node.js.
   
 16. Update the wpa_supplicant configuration file. Run the command:
 
-    ```
+    ``` bash
     sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
     ```
   
 17. Add the following to the file:
 
-    ```
+    ```js
     network={
         ssid="<Wireless Network Name>"
         psk="<network password>"
@@ -102,7 +102,7 @@ These instructions will install an operating systema and Node.js.
 
 19. Update other Raspberry Configration options using the **Raspberry Pi Software Configuration Tool (raspi-config). Run the command:
 
-    ```
+    ``` bash
     sudo raspi-config
     ```
 
@@ -137,7 +137,7 @@ These instructions will install an operating systema and Node.js.
     1. Check [Nodejs.org](http://nodejs.org) to verify what the current or latest version is.
         > At the time of this instruction, the Long Term Support (LTS) version was 6.11.0 and current 8.1.3. I used current.
     2. In bash, run the following commands:
-        ```
+        ``` bash
         cUrl -sL http://deb.nodesource/com/Setup_8.x | sudo -E bash
         sudo  apt-get -y install nodejs
         ```
@@ -180,21 +180,21 @@ If you have your local development environment set up already, you can skip some
 5. Install IoT Hub Explorer
     - On your local computer, in the command shell, run the following command:
     
-        ```
+        ``` posh
         npm install -g iothub-explorer
         ```
 
 6. Add your device to IoT Hub
     1. In the command shell, run the following command:
 
-        ```
+        ``` posh
         iothub-explorer login '<connection string>'
         ```
     Replacing *\<connection string\>* with the connection string you copied from your IoT Hub.
 
     2. Run the following command:
 
-        ```
+        ``` posh
         iothub-explorer create '<device id>'
         ```
     Replace *\<device id\>* with a unique ID for your device
@@ -207,7 +207,7 @@ If you have your local development environment set up already, you can skip some
 8. Create and initialize your local development folder.
     1. On your local machine, in the command shell, navigate to the location where you want to create your development folder.
     2. In the command shell, run the following command:
-        ```
+        ``` posh
         new-item device -Type directory
         ```
 
@@ -215,7 +215,7 @@ If you have your local development environment set up already, you can skip some
     
     3. Navigate to the **device** folder.
     4. Initialize the folder by running the following command:
-        ```
+        ``` posh
         npm init -y
         ```
 
@@ -226,7 +226,7 @@ If you have your local development environment set up already, you can skip some
 
     Run the following command:
 
-        ```
+        ``` posh
         npm install johnny-five azure-iot-device azure-iot-device-amqp
         ```
     > There will likely be some errors from the johnny-five install.
@@ -298,7 +298,7 @@ If you have your local development environment set up already, you can skip some
 
 25. Install johnny-five javascript libraries on your device
     The johnny-five javascript libraries let you talk to your device.  Run this command in bash:
-    ```
+    ``` 
     npm install johnny-five
     ```
     
