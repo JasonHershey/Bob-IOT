@@ -12,7 +12,9 @@ Setup is based partially on the instructions from [Codefoster's IOT Workshop ins
 - Raspbian Jessie Lite - Version June 2017 - Kernel 4.9 - Download from [Raspberrypi.org/downloads](https://www.raspberrypi.org/downloads/raspbian/)
 - Etcher - Download from [etcher.io](https://etcher.io)
 
-### Instructions
+### Core software installation
+These instructions will install an operating systema and Node.js.
+
 1. Download Raspbian Jessie Lite from [Raspberrypi.org/downloads](http://Raspberrypi.org/downloads)
 2. Install Etcher from [etcher.io](https://etcher.io)
 3. Insert the SD card in your local computer
@@ -132,7 +134,7 @@ Setup is based partially on the instructions from [Codefoster's IOT Workshop ins
 23. Log in to your Raspberry Pi, again, using the new host name (**pi@_hostname_.local**)
 
 24. Install Node.js on the device
-    1. Check Nodejs.org to verify what the current or latest version is.
+    1. Check [Nodejs.org](http://nodejs.org) to verify what the current or latest version is.
         > At the time of this instruction, the Long Term Support (LTS) version was 6.11.0 and current 8.1.3. I used current.
     2. In bash, run the following commands:
         ```
@@ -140,9 +142,166 @@ Setup is based partially on the instructions from [Codefoster's IOT Workshop ins
         sudo  apt-get -y install nodejs
         ```
 
+### Set up your development environment
+These instructions will setup your development environment on your host computer and in Microsoft Azure. 
+If you have your local development environment set up already, you can skip some of this.
+
+1. Set up Visual Studio Code.  Why VS Code? Because its free and easy.
+    1. Navigate to [https://code.visualstudio.com/](https://code.visualstudio.com/)
+    2. Click **Download for Windows** (or whatever OS you use)
+    3. Run the installer and follow the prompts as appropriate.
+
+2. Sign up for an Azure account. You can do a free trial or simply sign up for pay-as-you-go.
+    > There are several services you can use for free, as long as your usage is low.
+
+    - Navigate to [Azure.com](http://Azure.com) and click **Free Account**
+        -or-
+        Navigate to [portal.azure.com](http://portal.azure.com)
+
+3. Create an Azure IoT Hub
+    1. In the Azure portal \([portal.azure.com](http://portal.azure.com)\), click **+ New**.
+    2. Click **Internet of Things** and then click **IoT Hub**.
+    3. Enter a **Name** for your IoT Hub.
+    4. Select a **Pricing and scale tier**.
+        > The **F1** tier is free.
+    5. Select the number of units.
+        > 1 is sufficient.
+    6. Under **Resource group** select **Create new** and enter a name for the resource group.
+    7. Select the **Location** that is closest to you.
+    8. Click **Create**.
+
+4. Get the connection string for your IoT Hub.
+    1. In the Azure portal, open your IoT Hub.
+        > The setup of your dashboard will affect how you find your IoT Hub. If all else fails, click **All resources** in the left-hand menu, and select your IoT Hub.
+    2. In the IoT Hub blade, select **Shared access policies**.
+    3. Select **iothubowner**.
+    4. Copy the **Connection string-primary key**.
+
+5. Install IoT Hub Explorer
+    - On your local computer, in the command shell, run the following command:
+    
+        ```
+        npm install -g iothub-explorer
+        ```
+
+6. Add your device to IoT Hub
+    1. In the command shell, run the following command:
+
+        ```
+        iothub-explorer login '<connection string>'
+        ```
+    Replacing *\<connection string\>* with the connection string you copied from your IoT Hub.
+
+    2. Run the following command:
+
+        ```
+        iothub-explorer create '<device id>'
+        ```
+    Replace *\<device id\>* with a unique ID for your device
+
+7. Install Node.js on your local machine.
+    1. Navigate to [nodejs.org](http://nodejs.org).
+    2. Click the link for the version of Node.js you want to install.
+    3. Run the installer and follow the prompts as appropriate.
+
+8. Create and initialize your local development folder.
+    1. On your local machine, in the command shell, navigate to the location where you want to create your development folder.
+    2. In the command shell, run the following command:
+        ```
+        new-item device -Type directory
+        ```
+
+        > Keep in mind, I'm using Windows PowerShell.
+    
+    3. Navigate to the **device** folder.
+    4. Initialize the folder by running the following command:
+        ```
+        npm init -y
+        ```
+
+9. Install the code dependency libraries. They are:
+    - johnny-five - Libraries that allow you to talk to the Raspberry Pi easily
+    - azure-iot-device - Libraries for Azure IoT SDK
+    - azure-iot-device-amqp - AMQP transport for Azure IoT SDK
+
+    Run the following command:
+
+        ```
+        npm install johnny-five azure-iot-device azure-iot-device-amqp
+        ```
+    > There will likely be some errors from the johnny-five install.
+
+10. Create your default js file **index.js**.
+    1. Open Visual Studio Code.
+    2. Click **File** and then click **Open Folder**
+    3. Navigate to the **device** development folder and click **Select folder**.
+    4. Click **New file** and enter the file name **index.js**.
+    5. Enter the following code into the file:
+        ``` js
+        // index.js
+        //'use strict';
+
+        //Load dependencies
+        var five = require('johnny-five');
+        var raspi = require ('raspi-io');
+        var device = require('azure-iot-device');
+        var deviceAmqp = require('azure-iot-device-amqp');
+
+        //INIT
+        let connectionString = '<connection string>';
+        let hubClient = deviceAmqp.clientFromConnectionString(connectionString);
+
+        //MAIN CODE
+        //establishing connection to gpio
+        log('establishing connection to gpio...');
+            let board = new five.Board({ io: new raspi() });
+        board.on('ready', () => {
+            let led = new five.Led('GPIO26');
+            let button = new five.Button('GPIO20');
+            led.stop().off();
+
+            //open connection to iot hub
+            log('connecting to iot hub...');
+            hubClient.open(err => {
+                if (err)
+                    log(err.message)
+                else {
+                    log('READY');
+                    led.stop().off();
+
+                    button.on('press', () => {
+                        led.blink(500);
+                        log('sending message to iot hub...');
+                        let message = new device.Message(JSON.stringify({ deviceId: '<device id>', tags: ['foo', 'baz', 'bar'] }));
+                                hubClient.sendEvent(message, (err, res) => {
+                                    if (err) log(err.message);
+                                    else {
+                                                log(`Sent message to your IoT Hub`);
+                                                log('READY');
+                                            }
+                                            led.stop().off();
+                                        });
+                                    });
+                            }
+                        });
+                    });
+            
+
+        function log(msg) {
+            console.log(msg);
+        }
+        ```
+
+    
 
 
 
+25. Install johnny-five javascript libraries on your device
+    The johnny-five javascript libraries let you talk to your device.  Run this command in bash:
+    ```
+    npm install johnny-five
+    ```
+    
 
 
 
