@@ -177,7 +177,7 @@ While the components come from a different source, the setup of the circuit boar
 9. Use a female-to-male jumper wire, connect a 3.3v (PIN 1) pin to a column matching the right side of the button.
 10. Use a female-to-mail jumper wire, connect a ground (PIN 6) to the column that matches the left side of the 330 ohm resistor (and the right end of the jumper that connects to the right side of the LED).  
 
-![breadboard and raspberry pi](device\\images\\BBoard-and-RP.jpg)
+![breadboard and raspberry pi](device/images/BBoard-and-RP.jpg)
 *Completed breadboard and Raspberry Pi*
 
 ![button and 330 ohm resistor](device\\images\\button-resistor.jpg)
