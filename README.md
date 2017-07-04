@@ -65,8 +65,9 @@ These instructions will install an operating systema and Node.js.
     > Based on instructions from [https://www.maketecheasier.com/setup-wifi-on-raspberry-pi/](https://www.maketecheasier.com/setup-wifi-on-raspberry-pi/)
 
     - Run the command
+
         ```bash
-        sudo apt-get install wpasupplicant wireless-tools
+        sudo apt-get install wpasupplicant wireless-tools
         ```
 
 13. Update general wi-fi configurations. Run the command:
@@ -140,7 +141,7 @@ These instructions will install an operating systema and Node.js.
     5. Update the **Timezone** and **Wi-fi Country** as needed from the same **Localisation Options** menu.
 
 24. Enable I2C and Camera interfaces on Raspberry Pi
-    > This article provides a decent article that explains the interfaces. If not enabled, you will receive an error later in NodeJS.
+    > This article provides a decent article that explains the interfaces:[Raspberry Pi SPI and I2C Tutorial](https://learn.sparkfun.com/tutorials/raspberry-pi-spi-and-i2c-tutorial). If not enabled, you will receive an error later in NodeJS.
 
     1. In **raspi-config** select **5 Interfacing Options**.
     2. Select **P1 Camera**, select **Yes** and select **OK**.
@@ -160,6 +161,33 @@ These instructions will install an operating systema and Node.js.
         cUrl -sL http://deb.nodesource.com/Setup_6.x | sudo -E bash
         sudo  apt-get -y install nodejs
         ```
+
+### Build your circuit
+The Bob-IOT project uses a very similar setup to that used by @CodeFoster in [his project](https://github.com/codefoster/iot-workshop). 
+@CodeFoster's project is based on a kit provided in the workshop.  Mine is based on this commercially available electronics kit from elegoo.com: [Elegoo Upgraded Electronics Fun Kit](https://www.amazon.com/Elegoo-Electronics-Potentiometer-tie-points-Breadboard/dp/B01ERPEMAC)
+While the components come from a different source, the setup of the circuit board is the same.  The basic instructions are:
+
+1. Install the LED into the board, providing plenty of room to both left and right sides, with longest leg to the left.
+2. Install a 10K ohm resistor, with one end in a column matching the longest leg of the LED and the other end connected in a column to the left of the led.
+3. Use a jumper wire to connect a column matching the shorter leg of the led to a colum to the right.
+4. Attach a 330 ohm resist to a column matching the right end of the jumper wire, and attach it to a column to its right.
+5. Attach a button to the board, with one side connected to the column matching the right end of the 330 ohm resistor.
+6. Use a female-to-male jumper wire, conect GPIO Pin 26 to a column matching the left end of the 10K ohm resistor.
+7. Use a female-to-male jumper wire, connect GPIO 20 to a column matching the left side of the button (and right end of the 330 ohm resistor).
+9. Use a female-to-male jumper wire, connect a 3.3v (PIN 1) pin to a column matching the right side of the button.
+10. Use a female-to-mail jumper wire, connect a ground (PIN 6) to the column that matches the left side of the 330 ohm resistor (and the right end of the jumper that connects to the right side of the LED).  
+
+![breadboard and raspberry pi](.\images\BBoard-and-RP.jpg)
+*Completed breadboard and Raspberry Pi*
+
+![button and 330 ohm resistor](.\images\button-resistor.jpg)
+*Close-up of button and 330 ohm resistor*
+
+![led and 10K ohm resistor](.\images\LED-resistor.jpg)
+*Close-up of LED and 10K ohm resistor*
+
+> You can use the topic, [GPIO: MODELS A+, B+, RASPBERRY PI 2 B AND RASPBERRY PI 3 B](https://www.raspberrypi.org/documentation/usage/gpio-plus-and-raspi2/) as a reference to the GPIO pins.
+> Note that the power and ground pins are not numbered. I've used the physical pin numbering (see the above topic for explanation) to specificy them.
 
 ### Set up your development environment
 These instructions will setup your development environment on your host computer and in Microsoft Azure. 
