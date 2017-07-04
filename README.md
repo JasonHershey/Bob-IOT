@@ -180,10 +180,10 @@ While the components come from a different source, the setup of the circuit boar
 ![breadboard and raspberry pi](device/images/BBoard-and-RP.jpg)
 *Completed breadboard and Raspberry Pi*
 
-![button and 330 ohm resistor](device\\images\\button-resistor.jpg)
+![button and 330 ohm resistor](device/images/button-resistor.jpg)
 *Close-up of button and 330 ohm resistor*
 
-![led and 10K ohm resistor](device\\images\\LED-resistor.jpg)
+![led and 10K ohm resistor](device/images/LED-resistor.jpg)
 *Close-up of LED and 10K ohm resistor*
 
 > You can use the topic, [GPIO: MODELS A+, B+, RASPBERRY PI 2 B AND RASPBERRY PI 3 B](https://www.raspberrypi.org/documentation/usage/gpio-plus-and-raspi2/) as a reference to the GPIO pins.
