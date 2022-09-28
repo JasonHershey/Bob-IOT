@@ -1,3 +1,4 @@
+[![Board Status](https://dev.azure.com/tellus-jhershey-practice/07692395-3ab5-4ad4-bbd9-be46f7d863e6/4461c5a8-c3d8-4168-bd59-8ca0b6efa2a3/_apis/work/boardbadge/04f3fe93-6ca3-445d-955a-95fd5d6e0f33)](https://dev.azure.com/tellus-jhershey-practice/07692395-3ab5-4ad4-bbd9-be46f7d863e6/_boards/board/t/4461c5a8-c3d8-4168-bd59-8ca0b6efa2a3/Microsoft.RequirementCategory)
 ﻿# Tellus Consulting Bob IOT project
 ## Setup
 I had a lot of problems getting a good setup of the software on my Raspberry Pi, including NodeJS. These instructions are a conglomerations from various sources.
